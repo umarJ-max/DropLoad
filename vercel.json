@@ -1,7 +1,13 @@
 {
   "version": 2,
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/(.*)",     "destination": "/index.html" }
+  "builds": [
+    { "src": "api/download.js", "use": "@vercel/node" },
+    { "src": "api/facebook.py", "use": "@vercel/python" },
+    { "src": "index.html", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/download", "dest": "/api/download.js" },
+    { "src": "/api/facebook", "dest": "/api/facebook.py" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
