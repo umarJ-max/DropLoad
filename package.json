@@ -2,5 +2,5 @@
   "name": "dropload",
   "version": "1.0.0",
   "description": "Universal social media downloader",
-  "engines": { "node": "18.x" }
+  "engines": { "node": "24.x" }
 }
