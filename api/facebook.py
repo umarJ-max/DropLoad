@@ -1,24 +1,11 @@
 from http.server import BaseHTTPRequestHandler
 import json
-import subprocess
-import sys
 
 
-def install_ytdlp():
-    subprocess.check_call(
-        [sys.executable, "-m", "pip", "install", "-q", "yt-dlp"],
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
-    )
+import yt_dlp
 
 
 def get_video_info(url):
-    try:
-        import yt_dlp
-    except ImportError:
-        install_ytdlp()
-        import yt_dlp
-
     ydl_opts = {
         "quiet": True,
         "no_warnings": True,
