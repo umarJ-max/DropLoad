@@ -63,19 +63,6 @@ async function fetchFacebook(url, req) {
   return data;
 }
 
-async function fetchYouTube(url, req) {
-  const host     = req.headers.host || 'localhost:3000';
-  const protocol = host.includes('localhost') ? 'http' : 'https';
-  const res      = await fetch(`${protocol}://${host}/api/youtube`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ url })
-  });
-  const data = await res.json();
-  if (!res.ok || !data.success) throw new Error(data.error || 'YouTube extraction failed');
-  return data;
-}
-
 async function fetchUniversal(url, platform) {
   const res  = await fetch(`${UNIVERSAL_API}?url=${encodeURIComponent(url)}`);
   if (!res.ok) throw new Error(`API error ${res.status} — this platform may not be supported`);
@@ -124,7 +111,6 @@ module.exports = async function handler(req, res) {
     let result;
     if (platform === 'pinterest') result = await fetchPinterest(url);
     else if (platform === 'facebook') result = await fetchFacebook(url, req);
-    else if (platform === 'youtube') result = await fetchYouTube(url, req);
     else result = await fetchUniversal(url, platform);
     return res.status(200).json(result);
   } catch (err) {
